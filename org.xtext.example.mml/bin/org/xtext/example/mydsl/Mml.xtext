@@ -1,0 +1,8 @@
+grammar org.xtext.example.mydsl.Mml with org.eclipse.xtext.common.Terminals
+
+generate mml "http://www.xtext.org/example/mydsl/Mml"
+
+MMLModel:
+	input=DataInput;
+	
+DataInput: 'input' filelocation=STRING;
