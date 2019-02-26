@@ -110,26 +110,25 @@ public class MmlParsingJavaTest {
 		}else {
 			
 			FormulaItem y = formula.getPredictive();
+			FormulaItem x = (FormulaItem) formula.getPredictors();
+
 			if(y == null) { //si la predictive n'a pas été renseignée
 				codeFormulaY = "Y = mml_data[-1]";
 			}else {
 			if (y.getColName() != null) { //si colname est un string
 				codeFormulaY = "Y = mml_data["+y+"] /n";
 			}else { ////si colname est un int
-				codeFormulaY = "Y = mml_data.iloc[:,"+y+"] /n";
+				codeFormulaY = "Y = mml_data.iloc[:," + y + "] /n";
+				if(x instanceof AllVariables) {
+					codeFormulaX = "X = mml_data.iloc[:, :-" + y + ":]\n";
+				} else {//si c'est PredictorVariables
+					
+				}
+				
 			}
 			
 			}
-			
-			FormulaItem x = (FormulaItem) formula.getPredictors();
-			if(x instanceof AllVariables) {
-				codeFormulaX = "X = mml_data[:-1]";
-			}
-			if (x.getColName() != null) { //si colname est un string
-				codeFormulaY = "Y = mml_data["+y+"] /n";
-			}else { ////si colname est un int
-				codeFormulaY = "Y = mml_data.iloc[:,"+y+"] /n";
-			}
+
 			
 
 		}
