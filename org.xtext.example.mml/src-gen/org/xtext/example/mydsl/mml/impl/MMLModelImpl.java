@@ -13,8 +13,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.xtext.example.mydsl.mml.DataInput;
+import org.xtext.example.mydsl.mml.MLChoiceAlgorithm;
 import org.xtext.example.mydsl.mml.MMLModel;
 import org.xtext.example.mydsl.mml.MmlPackage;
+import org.xtext.example.mydsl.mml.RFormula;
+import org.xtext.example.mydsl.mml.Validation;
 
 /**
  * <!-- begin-user-doc -->
@@ -25,6 +28,9 @@ import org.xtext.example.mydsl.mml.MmlPackage;
  * </p>
  * <ul>
  *   <li>{@link org.xtext.example.mydsl.mml.impl.MMLModelImpl#getInput <em>Input</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.mml.impl.MMLModelImpl#getAlgorithm <em>Algorithm</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.mml.impl.MMLModelImpl#getFormula <em>Formula</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.mml.impl.MMLModelImpl#getValidation <em>Validation</em>}</li>
  * </ul>
  *
  * @generated
@@ -40,6 +46,36 @@ public class MMLModelImpl extends MinimalEObjectImpl.Container implements MMLMod
    * @ordered
    */
   protected DataInput input;
+
+  /**
+   * The cached value of the '{@link #getAlgorithm() <em>Algorithm</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getAlgorithm()
+   * @generated
+   * @ordered
+   */
+  protected MLChoiceAlgorithm algorithm;
+
+  /**
+   * The cached value of the '{@link #getFormula() <em>Formula</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFormula()
+   * @generated
+   * @ordered
+   */
+  protected RFormula formula;
+
+  /**
+   * The cached value of the '{@link #getValidation() <em>Validation</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getValidation()
+   * @generated
+   * @ordered
+   */
+  protected Validation validation;
 
   /**
    * <!-- begin-user-doc -->
@@ -115,6 +151,150 @@ public class MMLModelImpl extends MinimalEObjectImpl.Container implements MMLMod
    * <!-- end-user-doc -->
    * @generated
    */
+  public MLChoiceAlgorithm getAlgorithm()
+  {
+    return algorithm;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetAlgorithm(MLChoiceAlgorithm newAlgorithm, NotificationChain msgs)
+  {
+    MLChoiceAlgorithm oldAlgorithm = algorithm;
+    algorithm = newAlgorithm;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, MmlPackage.MML_MODEL__ALGORITHM, oldAlgorithm, newAlgorithm);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setAlgorithm(MLChoiceAlgorithm newAlgorithm)
+  {
+    if (newAlgorithm != algorithm)
+    {
+      NotificationChain msgs = null;
+      if (algorithm != null)
+        msgs = ((InternalEObject)algorithm).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - MmlPackage.MML_MODEL__ALGORITHM, null, msgs);
+      if (newAlgorithm != null)
+        msgs = ((InternalEObject)newAlgorithm).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - MmlPackage.MML_MODEL__ALGORITHM, null, msgs);
+      msgs = basicSetAlgorithm(newAlgorithm, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, MmlPackage.MML_MODEL__ALGORITHM, newAlgorithm, newAlgorithm));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public RFormula getFormula()
+  {
+    return formula;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetFormula(RFormula newFormula, NotificationChain msgs)
+  {
+    RFormula oldFormula = formula;
+    formula = newFormula;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, MmlPackage.MML_MODEL__FORMULA, oldFormula, newFormula);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setFormula(RFormula newFormula)
+  {
+    if (newFormula != formula)
+    {
+      NotificationChain msgs = null;
+      if (formula != null)
+        msgs = ((InternalEObject)formula).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - MmlPackage.MML_MODEL__FORMULA, null, msgs);
+      if (newFormula != null)
+        msgs = ((InternalEObject)newFormula).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - MmlPackage.MML_MODEL__FORMULA, null, msgs);
+      msgs = basicSetFormula(newFormula, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, MmlPackage.MML_MODEL__FORMULA, newFormula, newFormula));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Validation getValidation()
+  {
+    return validation;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetValidation(Validation newValidation, NotificationChain msgs)
+  {
+    Validation oldValidation = validation;
+    validation = newValidation;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, MmlPackage.MML_MODEL__VALIDATION, oldValidation, newValidation);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setValidation(Validation newValidation)
+  {
+    if (newValidation != validation)
+    {
+      NotificationChain msgs = null;
+      if (validation != null)
+        msgs = ((InternalEObject)validation).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - MmlPackage.MML_MODEL__VALIDATION, null, msgs);
+      if (newValidation != null)
+        msgs = ((InternalEObject)newValidation).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - MmlPackage.MML_MODEL__VALIDATION, null, msgs);
+      msgs = basicSetValidation(newValidation, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, MmlPackage.MML_MODEL__VALIDATION, newValidation, newValidation));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -122,6 +302,12 @@ public class MMLModelImpl extends MinimalEObjectImpl.Container implements MMLMod
     {
       case MmlPackage.MML_MODEL__INPUT:
         return basicSetInput(null, msgs);
+      case MmlPackage.MML_MODEL__ALGORITHM:
+        return basicSetAlgorithm(null, msgs);
+      case MmlPackage.MML_MODEL__FORMULA:
+        return basicSetFormula(null, msgs);
+      case MmlPackage.MML_MODEL__VALIDATION:
+        return basicSetValidation(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -138,6 +324,12 @@ public class MMLModelImpl extends MinimalEObjectImpl.Container implements MMLMod
     {
       case MmlPackage.MML_MODEL__INPUT:
         return getInput();
+      case MmlPackage.MML_MODEL__ALGORITHM:
+        return getAlgorithm();
+      case MmlPackage.MML_MODEL__FORMULA:
+        return getFormula();
+      case MmlPackage.MML_MODEL__VALIDATION:
+        return getValidation();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -154,6 +346,15 @@ public class MMLModelImpl extends MinimalEObjectImpl.Container implements MMLMod
     {
       case MmlPackage.MML_MODEL__INPUT:
         setInput((DataInput)newValue);
+        return;
+      case MmlPackage.MML_MODEL__ALGORITHM:
+        setAlgorithm((MLChoiceAlgorithm)newValue);
+        return;
+      case MmlPackage.MML_MODEL__FORMULA:
+        setFormula((RFormula)newValue);
+        return;
+      case MmlPackage.MML_MODEL__VALIDATION:
+        setValidation((Validation)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -172,6 +373,15 @@ public class MMLModelImpl extends MinimalEObjectImpl.Container implements MMLMod
       case MmlPackage.MML_MODEL__INPUT:
         setInput((DataInput)null);
         return;
+      case MmlPackage.MML_MODEL__ALGORITHM:
+        setAlgorithm((MLChoiceAlgorithm)null);
+        return;
+      case MmlPackage.MML_MODEL__FORMULA:
+        setFormula((RFormula)null);
+        return;
+      case MmlPackage.MML_MODEL__VALIDATION:
+        setValidation((Validation)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -188,6 +398,12 @@ public class MMLModelImpl extends MinimalEObjectImpl.Container implements MMLMod
     {
       case MmlPackage.MML_MODEL__INPUT:
         return input != null;
+      case MmlPackage.MML_MODEL__ALGORITHM:
+        return algorithm != null;
+      case MmlPackage.MML_MODEL__FORMULA:
+        return formula != null;
+      case MmlPackage.MML_MODEL__VALIDATION:
+        return validation != null;
     }
     return super.eIsSet(featureID);
   }

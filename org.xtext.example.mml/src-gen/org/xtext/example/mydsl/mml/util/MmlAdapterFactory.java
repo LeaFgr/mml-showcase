@@ -86,6 +86,86 @@ public class MmlAdapterFactory extends AdapterFactoryImpl
         return createDataInputAdapter();
       }
       @Override
+      public Adapter caseCSVParsingConfiguration(CSVParsingConfiguration object)
+      {
+        return createCSVParsingConfigurationAdapter();
+      }
+      @Override
+      public Adapter caseMLChoiceAlgorithm(MLChoiceAlgorithm object)
+      {
+        return createMLChoiceAlgorithmAdapter();
+      }
+      @Override
+      public Adapter caseMLAlgorithm(MLAlgorithm object)
+      {
+        return createMLAlgorithmAdapter();
+      }
+      @Override
+      public Adapter caseSVM(SVM object)
+      {
+        return createSVMAdapter();
+      }
+      @Override
+      public Adapter caseDT(DT object)
+      {
+        return createDTAdapter();
+      }
+      @Override
+      public Adapter caseRandomForest(RandomForest object)
+      {
+        return createRandomForestAdapter();
+      }
+      @Override
+      public Adapter caseLogisticRegression(LogisticRegression object)
+      {
+        return createLogisticRegressionAdapter();
+      }
+      @Override
+      public Adapter caseRFormula(RFormula object)
+      {
+        return createRFormulaAdapter();
+      }
+      @Override
+      public Adapter caseXFormula(XFormula object)
+      {
+        return createXFormulaAdapter();
+      }
+      @Override
+      public Adapter caseAllVariables(AllVariables object)
+      {
+        return createAllVariablesAdapter();
+      }
+      @Override
+      public Adapter casePredictorVariables(PredictorVariables object)
+      {
+        return createPredictorVariablesAdapter();
+      }
+      @Override
+      public Adapter caseFormulaItem(FormulaItem object)
+      {
+        return createFormulaItemAdapter();
+      }
+      @Override
+      public Adapter caseValidation(Validation object)
+      {
+        return createValidationAdapter();
+      }
+      @Override
+      public Adapter caseStratificationMethod(StratificationMethod object)
+      {
+        return createStratificationMethodAdapter();
+      }
+      @Override
+      public Adapter caseCrossValidation(CrossValidation object)
+      {
+        return createCrossValidationAdapter();
+      }
+      @Override
+      public Adapter caseTrainingTest(TrainingTest object)
+      {
+        return createTrainingTestAdapter();
+      }
+      @Override
       public Adapter defaultCase(EObject object)
       {
         return createEObjectAdapter();
@@ -133,6 +213,246 @@ public class MmlAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createDataInputAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.mml.CSVParsingConfiguration <em>CSV Parsing Configuration</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.mml.CSVParsingConfiguration
+   * @generated
+   */
+  public Adapter createCSVParsingConfigurationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.mml.MLChoiceAlgorithm <em>ML Choice Algorithm</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.mml.MLChoiceAlgorithm
+   * @generated
+   */
+  public Adapter createMLChoiceAlgorithmAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.mml.MLAlgorithm <em>ML Algorithm</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.mml.MLAlgorithm
+   * @generated
+   */
+  public Adapter createMLAlgorithmAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.mml.SVM <em>SVM</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.mml.SVM
+   * @generated
+   */
+  public Adapter createSVMAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.mml.DT <em>DT</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.mml.DT
+   * @generated
+   */
+  public Adapter createDTAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.mml.RandomForest <em>Random Forest</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.mml.RandomForest
+   * @generated
+   */
+  public Adapter createRandomForestAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.mml.LogisticRegression <em>Logistic Regression</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.mml.LogisticRegression
+   * @generated
+   */
+  public Adapter createLogisticRegressionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.mml.RFormula <em>RFormula</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.mml.RFormula
+   * @generated
+   */
+  public Adapter createRFormulaAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.mml.XFormula <em>XFormula</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.mml.XFormula
+   * @generated
+   */
+  public Adapter createXFormulaAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.mml.AllVariables <em>All Variables</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.mml.AllVariables
+   * @generated
+   */
+  public Adapter createAllVariablesAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.mml.PredictorVariables <em>Predictor Variables</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.mml.PredictorVariables
+   * @generated
+   */
+  public Adapter createPredictorVariablesAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.mml.FormulaItem <em>Formula Item</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.mml.FormulaItem
+   * @generated
+   */
+  public Adapter createFormulaItemAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.mml.Validation <em>Validation</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.mml.Validation
+   * @generated
+   */
+  public Adapter createValidationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.mml.StratificationMethod <em>Stratification Method</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.mml.StratificationMethod
+   * @generated
+   */
+  public Adapter createStratificationMethodAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.mml.CrossValidation <em>Cross Validation</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.mml.CrossValidation
+   * @generated
+   */
+  public Adapter createCrossValidationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.mml.TrainingTest <em>Training Test</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.mml.TrainingTest
+   * @generated
+   */
+  public Adapter createTrainingTestAdapter()
   {
     return null;
   }
