@@ -1,4 +1,4 @@
-datainput "foo.csv"
+datainput "iris.csv"
 mlframework scikit-learn
 algorithm DT
 CrossValidation { numRepetitionCross 2 }
