@@ -72,12 +72,15 @@ public class MmlParsingJavaTest {
 //				+ "TrainingTest { pourcentageTraining 70 }\n"
 //				+ "recall\n"
 //				+ "");
-		MMLModel result = parseHelper.parse("datainput \"foo.csv\"\n"
-				+ "mlframework scikit-learn\n"
-				+ "algorithm DT\n"
-				+ "CrossValidation { numRepetitionCross 2 }\n"
-				+ "recall F1\n"
-				+ "");
+//		MMLModel result = parseHelper.parse("datainput \"foo.csv\"\n"
+//				+ "mlframework scikit-learn\n"
+//				+ "algorithm DT\n"
+//				+ "CrossValidation { numRepetitionCross 2 }\n"
+//				+ "recall F1\n"
+//				+ "");
+		
+		MMLModel result = parseHelper.parse(
+		
 		DataInput dataInput = result.getInput();
 		String fileLocation = dataInput.getFilelocation();
 

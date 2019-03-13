@@ -1,0 +1,5 @@
+datainput "foo.csv"
+mlframework scikit-learn\n"
+algorithm DT
+CrossValidation { numRepetitionCross 2 }
+recall F1
