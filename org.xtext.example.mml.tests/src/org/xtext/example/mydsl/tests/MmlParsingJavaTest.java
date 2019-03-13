@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.xtext.example.mydsl.mml.AllVariables;
 import org.xtext.example.mydsl.mml.CSVParsingConfiguration;
+import org.xtext.example.mydsl.mml.CSVSeparator;
 import org.xtext.example.mydsl.mml.CrossValidation;
 import org.xtext.example.mydsl.mml.DT;
 import org.xtext.example.mydsl.mml.DataInput;
@@ -51,7 +52,7 @@ public class MmlParsingJavaTest {
 //				+ "TrainingTest { pourcentageTraining 70 }\n"
 //				+ "recall\n"
 //				+ "");
-		MMLModel result = parseHelper.parse("datainput \"foo.csv\"\n"
+		MMLModel result = parseHelper.parse("datainput \"foo.csv\" separator ,\n"
 				+ "mlframework scikit-learn\n"
 				+ "algorithm DT\n"
 				+ "CrossValidation { numRepetitionCross 2 }\n"
@@ -66,12 +67,12 @@ public class MmlParsingJavaTest {
 
 	@Test
 	public void compileDataInput() throws Exception {
-//		MMLModel result = parseHelper.parse("datainput \"foo2.csv\" separator ;\n"
-//				+ "mlframework scikit-learn\n"
-//				+ "algorithm DT\n"
-//				+ "TrainingTest { pourcentageTraining 70 }\n"
-//				+ "recall\n"
-//				+ "");
+		MMLModel result = parseHelper.parse("datainput \"iris.csv\" separator ,\n"
+				+ "mlframework scikit-learn\n"
+				+ "algorithm DT\n"
+				+ "TrainingTest { pourcentageTraining 70 }\n"
+				+ "recall\n"
+				+ "");
 //		MMLModel result = parseHelper.parse("datainput \"foo.csv\"\n"
 //				+ "mlframework scikit-learn\n"
 //				+ "algorithm DT\n"
@@ -79,7 +80,7 @@ public class MmlParsingJavaTest {
 //				+ "recall F1\n"
 //				+ "");
 		
-		MMLModel result = parseHelper.parse(
+//		MMLModel result = parseHelper.parse();
 		
 		DataInput dataInput = result.getInput();
 		String fileLocation = dataInput.getFilelocation();
@@ -87,14 +88,20 @@ public class MmlParsingJavaTest {
 
 
 		String pythonImport = "import pandas as pd\n"; 
-		String DEFAULT_COLUMN_SEPARATOR = ","; // by default
-		String csv_separator = DEFAULT_COLUMN_SEPARATOR;
+		CSVSeparator DEFAULT_COLUMN_SEPARATOR = CSVSeparator.COMMA; // by default
+		CSVSeparator csv_separator = DEFAULT_COLUMN_SEPARATOR;
 		CSVParsingConfiguration parsingInstruction = dataInput.getParsingInstruction();
 		if (parsingInstruction != null) {			
-			System.err.println("parsing instruction..." + parsingInstruction);
-			csv_separator = parsingInstruction.getSep().toString();
+			System.out.println("parsing instruction..." + parsingInstruction);
+			csv_separator = parsingInstruction.getSep();
+			if(CSVSeparator.SEMI_COLON.equals(csv_separator)) {
+				csv_separator = CSVSeparator.SEMI_COLON;
+			}
+			else if(CSVSeparator.COMMA.equals(csv_separator)) {
+				csv_separator = CSVSeparator.COMMA;
+			}
 		}
-		String csvReading = "mml_data = pd.read_csv(" + mkValueInSingleQuote(fileLocation) + ", sep=" + mkValueInSingleQuote(csv_separator) + ")\n";						
+		String csvReading = "mml_data = pd.read_csv(" + mkValueInSingleQuote(fileLocation) + ", sep=" + mkValueInSingleQuote(csv_separator.getLiteral()) + ")\n";						
 		String pandasCode = pythonImport + csvReading;
 
 
@@ -251,6 +258,7 @@ public class MmlParsingJavaTest {
 		}else {//c'est du TrainingTest
 			TrainingTest trainTest = (TrainingTest) stratification;
 			int pourcentageTraining = trainTest.getNumber();
+			stratificationCode += "from sklearn.model_selection import train_test_split\n";
 			stratificationCode += "x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size="+pourcentageTraining+")\n";
 			stratificationCode +="classifier.fit(x_train,y_train)\n";
 			stratificationCode += "y_pred = classifier.predict(x_test)\n";
@@ -275,7 +283,7 @@ public class MmlParsingJavaTest {
 		 * Calling generated Python script (basic solution through systems call)
 		 * we assume that "python" is in the path
 		 */
-		Process p = Runtime.getRuntime().exec("python mml.py");
+		Process p = Runtime.getRuntime().exec("python3.5 mml.py");
 		BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
 		String line; 
 		while ((line = in.readLine()) != null) {
