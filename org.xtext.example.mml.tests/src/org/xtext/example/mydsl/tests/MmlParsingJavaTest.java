@@ -115,9 +115,14 @@ public class MmlParsingJavaTest {
 		}
 		else if (algo instanceof LogisticRegression) {
 			LogisticRegression lr = (LogisticRegression) algo;
+			algoML = "from sklearn.linear_model import LogisticRegression\n";
+			algoML += "classifier = LogisticRegression(random_state=0, solver='lbfgs', multi_class='multinomial')\n";
+			
 		}
 		else if(algo instanceof RandomForest) {
 			RandomForest rf = (RandomForest) algo;
+			algoML = "from sklearn.ensemble import RandomForestClassifier\n";
+			algoML += "classifier = RandomForestClassifier()\n";
 		}
 	
 		RFormula formula = result.getFormula();
@@ -214,11 +219,11 @@ public class MmlParsingJavaTest {
 				metricCode +="    ";
 			}
 			if(ValidationMetric.RECALL.equals(metric.get(i))){
-				metricCode += "sklearn.metrics.recall_score(y_test, y_pred, labels=None, pos_label=1, average=’binary’, sample_weight=None)\n";
+				metricCode += "sklearn.metrics.recall_score(y_test, y_pred, labels=None, pos_label=1, average='binary', sample_weight=None)\n";
 			}else if(ValidationMetric.PRECISION.equals(metric.get(i))) {
-				metricCode += "sklearn.metrics.precision_score(y_test, y_pred, labels=None, pos_label=1, average=’binary’, sample_weight=None)\n";
+				metricCode += "sklearn.metrics.precision_score(y_test, y_pred, labels=None, pos_label=1, average='binary', sample_weight=None)\n";
 			}else if(ValidationMetric.F1.equals(metric.get(i))) {
-				metricCode += "sklearn.metrics.f1_score(y_test, y_pred, labels=None, pos_label=1, average=’binary’, sample_weight=None)\n";
+				metricCode += "sklearn.metrics.f1_score(y_test, y_pred, labels=None, pos_label=1, average='binary', sample_weight=None)\n";
 			}
 		}
 		
@@ -229,10 +234,10 @@ public class MmlParsingJavaTest {
 			int numRep = cross.getNumber();
 			//créer le x_train et le y_train
 			
-			
+			stratificationCode += "from sklearn.model_selection import StratifiedKFold\n";
 			stratificationCode += "skf = StratifiedKFold(n_splits="+numRep+", shuffle=True)\n";
 			stratificationCode +="for index, (train_indices, val_indices) in enumerate(skf.split(X, Y)):\n";
-			stratificationCode +="    print 'Training on fold ' + str(index+1) + '/10...'\n";
+			stratificationCode +="    print('Training on fold :' + str(index+1))\n";
 			stratificationCode +="    x_train, x_test = X[train_indices], X[val_indices]\n";
 			stratificationCode +="    classifier.fit(x_train,y_train)\n";
 			stratificationCode +="    y_train, y_test = Y[train_indices], Y[val_indices]\n";
