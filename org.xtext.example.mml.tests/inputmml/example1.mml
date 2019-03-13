@@ -1,5 +1,5 @@
 datainput "foo.csv"
-mlframework scikit-learn\n"
+mlframework scikit-learn
 algorithm DT
 CrossValidation { numRepetitionCross 2 }
 recall F1

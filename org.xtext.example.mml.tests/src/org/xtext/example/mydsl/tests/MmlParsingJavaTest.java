@@ -3,6 +3,9 @@ package org.xtext.example.mydsl.tests;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
+import java.util.Scanner;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -78,8 +81,21 @@ public class MmlParsingJavaTest {
 //				+ "CrossValidation { numRepetitionCross 2 }\n"
 //				+ "recall F1\n"
 //				+ "");
-		
-		MMLModel result = parseHelper.parse(
+		File folder = new File("inputmml/");
+		File[] listOfFiles = folder.listFiles();
+
+		for (int f = 0; f < listOfFiles.length; f++) {
+		  if (listOfFiles[f].isFile()) {
+		Scanner scanner = new Scanner(Paths.get("inputmml/" + listOfFiles[f].getName()), StandardCharsets.UTF_8.name());
+		String content = scanner.useDelimiter("\\A").next();
+		System.out.println(content);
+		scanner.close();
+		MMLModel result = parseHelper.parse(content);
+
+//		Assertions.assertNotNull(result);
+//		EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+//		Assertions.assertTrue(errors.isEmpty(), "Unexpected errors");			
+//		Assertions.assertEquals("foo2.csv", result.getInput().getFilelocation());	
 		
 		DataInput dataInput = result.getInput();
 		String fileLocation = dataInput.getFilelocation();
@@ -281,9 +297,10 @@ public class MmlParsingJavaTest {
 		while ((line = in.readLine()) != null) {
 			System.out.println(line);
 		}
+	
 
-
-
+	}
+		}
 	}
 
 	private String mkValueInSingleQuote(String val) {
