@@ -1,0 +1,4 @@
+datainput "iris.csv"
+mlframework R
+algorithm RandomForest
+RFormula variety~.
