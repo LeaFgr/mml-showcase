@@ -88,8 +88,12 @@ public class MmlParsingJavaTest {
 				String content = scanner.useDelimiter("\\A").next();
 				System.out.println(content);
 				scanner.close();
+				
+				
+				System.out.println("avant parsing");
 				MMLModel result = parseHelper.parse(content);
-
+				System.out.println("après parsing");
+				
 				// Assertions.assertNotNull(result);
 				// EList<Resource.Diagnostic> errors = result.eResource().getErrors();
 				// Assertions.assertTrue(errors.isEmpty(), "Unexpected errors");
@@ -118,17 +122,19 @@ public class MmlParsingJavaTest {
 				case SCIKIT:
 
 					String pythonImport = "import pandas as pd\n";
-
+					pythonImport += "import sklearn\n";
 					String csvReading = "mml_data = pd.read_csv(" + mkValueInSingleQuote(fileLocation) + ", sep="
 							+ mkValueInSingleQuote(csv_separator.getLiteral()) + ")\n";
 					String pandasCode = pythonImport + csvReading;
 
 					String algoML = "";
-
+					System.out.println("algo");
 					if (algo instanceof SVM) {
+						System.out.println("SVM");
 						// apply
 						SVM svm = (SVM) algo;
 					} else if (algo instanceof DT) {
+						System.out.println("DT");
 						DT dt = (DT) algo;
 						String max_depth;
 						if (dt.getMax_depth() != 0) {
@@ -139,16 +145,18 @@ public class MmlParsingJavaTest {
 						algoML = "from sklearn.tree import DecisionTreeClassifier \nclassifier = DecisionTreeClassifier(max_depth="
 								+ max_depth + ")\n";
 					} else if (algo instanceof LogisticRegression) {
+						System.out.println("LogisticRegression");
 						LogisticRegression lr = (LogisticRegression) algo;
 						algoML = "from sklearn.linear_model import LogisticRegression\n";
 						algoML += "classifier = LogisticRegression(random_state=0, solver='lbfgs', multi_class='multinomial')\n";
 
 					} else if (algo instanceof RandomForest) {
+						System.out.println("RandomForest");
 						RandomForest rf = (RandomForest) algo;
 						algoML = "from sklearn.ensemble import RandomForestClassifier\n";
 						algoML += "classifier = RandomForestClassifier()\n";
 					}
-
+					System.out.println("Formule");
 					RFormula formula = result.getFormula();
 					String codeFormulaX = "";
 					String codeFormulaY = "";
@@ -156,9 +164,11 @@ public class MmlParsingJavaTest {
 						codeFormulaY = "Y = mml_data.iloc[:,-1]\n";
 						codeFormulaX = "X = mml_data.iloc[:,:-1]\n";
 					} else {// une formule a été donnée
+						System.out.println("Formule donnee");
 						FormulaItem y = formula.getPredictive();
 						XFormula x = formula.getPredictors();
 						if (y == null) { // si la predictive n'a pas été renseignée
+							System.out.println("Predictive non renseignee");
 							codeFormulaY = "Y = mml_data.iloc[:,-1]";
 							if (x instanceof AllVariables) {// toutes les variables sont explicatives
 								codeFormulaX = "X = mml_data.iloc[:, :-1] \n";
@@ -189,19 +199,32 @@ public class MmlParsingJavaTest {
 
 							}
 						} else {// la prédictive a été donnée
+							System.out.println("Predictive renseignee");
 							if (y.getColName() != null) { // si colname est un string
-								codeFormulaY = "Y = mml_data[" + y + "] \n";
-							} else { //// si colname est un int
-								codeFormulaY = "Y = mml_data.iloc[:," + y + "] \n";
+								System.out.println("Predictive est un string");
+								codeFormulaY = "Y = mml_data['" + y.getColName() + "'] \n";
 								if (x instanceof AllVariables) {
-									codeFormulaX = "X = mml_data.iloc[:, :-" + y + ":]\n";
-								} else {// PredictorVariables
-
+									System.out.println("Toutes les variables sont explicatives");
+									codeFormulaX = "X = mml_data.loc[:, ~mml_data.columns.isin(['"+ y.getColName() +"'])]\n";
+								}
+							} else { //// si colname est un int
+								System.out.println("Predictive est un int");
+								codeFormulaY = "Y = mml_data.iloc[:," + y.getColumn() + "] \n";
+								if (x instanceof AllVariables) {
+									System.out.println("Toutes les variables sont explicatives");
+									codeFormulaX = "X = mml_data.iloc[:, -" + y.getColumn() + "]\n";
+								}
+							}
+								if (x instanceof PredictorVariables) {
+									// PredictorVariables
+									System.out.println("Des variables explicatives ont été données");
 									PredictorVariables xPred = (PredictorVariables) x;
 									// on initialise codeFormulaX
 									if (xPred.getVars().get(0).getColName() != null) {// c'est un string
+										System.out.println("Les variables explicatives sont des strings");
 										codeFormulaX = "Y = mml_data[[" + xPred.getVars().get(0).getColName();
 									} else {// c'est un entier
+										System.out.println("Les variables explicatives sont des entiers");
 										codeFormulaX = "X = mml_data.iloc[:," + xPred.getVars().get(0).getColumn();
 									}
 									for (int i = 1; i < xPred.getVars().size(); i++) {
@@ -223,10 +246,10 @@ public class MmlParsingJavaTest {
 
 								}
 
-							}
 
 						}
 					}
+					System.out.println("Validation");
 					/* LA VALIDATION */
 					Validation validation = result.getValidation();
 					StratificationMethod stratification = validation.getStratification();
@@ -234,38 +257,50 @@ public class MmlParsingJavaTest {
 					// ValidationMetric metric = validation;
 					String metricCode = "";
 					EList<ValidationMetric> metric = validation.getMetric();
+					System.out.println("Metrique");
 					for (int i = 0; i < metric.size(); i++) {
 						if (stratification instanceof CrossValidation) {
 							metricCode += "    ";
 						}
 						if (ValidationMetric.RECALL.equals(metric.get(i))) {
-							metricCode += "sklearn.metrics.recall_score(y_test, y_pred, labels=None, pos_label=1, average='binary', sample_weight=None)\n";
+							metricCode += "recall = sklearn.metrics.recall_score(y_test, y_pred, labels=None, pos_label=1, average=None)\n";
+							metricCode += "    print('recall = ')\n";
+							metricCode += "    print(recall)\n";
 						} else if (ValidationMetric.PRECISION.equals(metric.get(i))) {
-							metricCode += "sklearn.metrics.precision_score(y_test, y_pred, labels=None, pos_label=1, average='binary', sample_weight=None)\n";
+							metricCode += "precision = sklearn.metrics.precision_score(y_test, y_pred, labels=None, pos_label=1, average=None)\n";
+							metricCode += "    print('precision = ')\n";
+							metricCode += "    print(precision)\n";
 						} else if (ValidationMetric.F1.equals(metric.get(i))) {
-							metricCode += "sklearn.metrics.f1_score(y_test, y_pred, labels=None, pos_label=1, average='binary', sample_weight=None)\n";
+							metricCode += "f1_score = sklearn.metrics.f1_score(y_test, y_pred, labels=None, pos_label=1, average=None)\n";
+							metricCode += "    print('f1_score = ')\n";
+							metricCode += "    print(f1_score)\n";
 						}
 					}
 
 					// LA STRATIFICATION
 					String stratificationCode = "";
+					System.out.println("Stratification");
 					if (stratification instanceof CrossValidation) {// c'est de la crossValidation
+						System.out.println("CrossValidation");
 						CrossValidation cross = (CrossValidation) stratification;
 						int numRep = cross.getNumber();
 						// créer le x_train et le y_train
 
 						stratificationCode += "from sklearn.model_selection import StratifiedKFold\n";
 						stratificationCode += "skf = StratifiedKFold(n_splits=" + numRep + ", shuffle=True)\n";
-						stratificationCode += "for index, (train_indices, val_indices) in enumerate(skf.split(X, Y)):\n";
-						stratificationCode += "    print('Training on fold :' + str(index+1))\n";
-						stratificationCode += "    x_train, x_test = X[train_indices], X[val_indices]\n";
-						stratificationCode += "    classifier.fit(x_train,y_train)\n";
+						stratificationCode += "i = 0\n";
+						stratificationCode += "for train_indices, val_indices in skf.split(X, Y):\n";
+						stratificationCode += "    print(i)\n";
+						stratificationCode += "    x_train, x_test = X.iloc[train_indices,:], X.iloc[val_indices,:]\n";
 						stratificationCode += "    y_train, y_test = Y[train_indices], Y[val_indices]\n";
+						stratificationCode += "    classifier.fit(x_train,y_train)\n";
 						stratificationCode += "    y_pred = classifier.predict(x_test)\n";
+						stratificationCode += "    i+=1\n";
 						stratificationCode += metricCode + "\n";
 
 						///////////// REVOIR CROSS VALIDATION
 					} else {// c'est du TrainingTest
+						System.out.println("TrainingTest");
 						TrainingTest trainTest = (TrainingTest) stratification;
 						int pourcentageTraining = trainTest.getNumber();
 						stratificationCode += "from sklearn.model_selection import train_test_split\n";
@@ -304,10 +339,11 @@ public class MmlParsingJavaTest {
 							+ mkValueInSingleQuote(csv_separator.getLiteral()) + ")\n";
 					String codeR = "" + readCsv;
 					RFormula formulaR = result.getFormula();
-					System.out.println("formule R : " + formulaR.toString());
+					System.out.println("formule R : ");
 					if(algo instanceof RandomForest) {
 						codeR += "library(randomForest)\n"
-								+ "modelRF <- randomForest(formula=" + formulaR.toString() + ",data=mml_data)\n";
+								+ "modelRF <- randomForest(formula=" + formulaR.toString() + ",data=mml_data)\n"
+										+ "print(modelRF)";
 					}
 					Files.write(codeR.getBytes(), new File("mml.R"));
 					// end of R generation
@@ -324,6 +360,7 @@ public class MmlParsingJavaTest {
 					}
 					break;
 				}
+				System.out.println("FIN");
 			}
 		}
 
@@ -334,3 +371,4 @@ public class MmlParsingJavaTest {
 	}
 
 }
+
