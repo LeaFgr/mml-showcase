@@ -1,0 +1,6 @@
+datainput "iris.csv"
+mlframework scikit-learn
+algorithm DT
+formula "variety"~.
+TrainingTest { pourcentageTraining 70}
+recall

@@ -1,0 +1,6 @@
+datainput "iris.csv"
+mlframework R
+algorithm RandomForest
+formula 3+2
+CrossValidation { numRepetitionCross 3}
+F1

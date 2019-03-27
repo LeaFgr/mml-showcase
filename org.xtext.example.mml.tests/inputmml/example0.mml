@@ -1,4 +1,6 @@
 datainput "iris.csv"
-mlframework R
-algorithm RandomForest
-RFormula variety~.
+mlframework scikit-learn
+algorithm LogisticRegression
+formula 4~3+2
+CrossValidation { numRepetitionCross 3 }
+recall F1 precision

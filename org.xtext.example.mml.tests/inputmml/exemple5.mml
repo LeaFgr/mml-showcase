@@ -1,0 +1,5 @@
+datainput "iris.csv"
+mlframework R
+algorithm DT
+TrainingTest { pourcentageTraining 70}
+recall precision

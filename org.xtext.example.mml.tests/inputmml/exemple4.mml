@@ -1,0 +1,6 @@
+datainput "iris.csv"
+mlframework scikit-learn
+algorithm LogisticRegression
+formula "variety"~ "sepal.width" + "petal.width"
+TrainingTest { pourcentageTraining 65}
+F1

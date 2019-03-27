@@ -1,0 +1,6 @@
+datainput "iris.csv"
+mlframework R
+algorithm LogisticRegression
+formula "sepal.width" + "petal.width"
+TrainingTest { pourcentageTraining 65}
+F1 precision recall
